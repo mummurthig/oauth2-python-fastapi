@@ -1,26 +1,28 @@
-from pydantic import BaseModel
+from pydantic import (BaseModel, Field, UUID4)
+from datetime import datetime
+import uuid
 
-class UserRegister(BaseModel):
-    user_name: str
-    first_name: str
-    last_name: str
-    mobile_number: str
-    email_id: str
-    password: str    
-    address: str
-    city: str
-    state: str
-    contory: str
+class UserRegisterModel(BaseModel):
+    reference_id: str | None = str(uuid.uuid4())
+    user_name: str = Field(...)
+    name:  str = Field(...)
+    contact:  str = Field(...)
+    email_id:  str = Field(...)
+    password:  str = Field(...)
+    address:  str | None = None
+    city:  str | None = None
+    state:  str | None = None
+    country:  str | None = None
+    created_at : datetime | None = datetime.now()
+    is_active: bool = True
 
-
-class UserLogin(BaseModel):
-    user_name: str
-    password: str
+class UserLoginModel(BaseModel):
+    user_name: str = Field(...)
+    password: str = Field(...)
 
 class Users(BaseModel): 
     reference_id : str   
     user_name: str
-    user_id: str
     first_name: str
     last_name: str
     email_id: str
@@ -29,7 +31,7 @@ class Users(BaseModel):
     address: str
     city: str
     state: str
-    contory: str
+    country: str
     is_active: bool
 
 
